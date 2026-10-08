@@ -78,7 +78,7 @@ Our hybrid Edge-Cloud architecture ensures that sensitive biometric data is secu
 | **Catherine** | Deep Learning AI Model Design & Architecture |
 | **Sunaina** | Cybersecurity, Backend Data Security, Cloud Safeguards |
 | **Ibrahim** | 3D Modeling, CAD Casing Design, Prototyping |
-| **Mustafa Kayaci** | Cloud Infrastructure, Python Dev, Web Integration |
+| **Enes** | Cloud Infrastructure, Python Dev, Web Integration |
 
 **Mentor:** Christos Liambas
 

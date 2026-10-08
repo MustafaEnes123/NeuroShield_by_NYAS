@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview | NeuroShield</title>
+  <meta name="description" content="NeuroShield dashboard: live EEG monitoring, anomaly categories, consent-gated stimulation, and daily wellness reports.">
+  <meta name="theme-color" content="#FDC800">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Icon sprite (Lucide-style, 2px stroke) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="7 12 9 12 10.5 9 13 15 14.5 12 17 12"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="16" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/></symbol>
+    <symbol id="i-bluetooth" viewBox="0 0 24 24"><polyline points="7 7 17 17 12 22 12 2 17 7 7 17"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24"><line x1="2" y1="2" x2="22" y2="22"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.17-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M16.85 11.25a10 10 0 0 1 2.22 1.68"/><path d="M5 13a10 10 0 0 1 5.24-2.76"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+      <div class="brand">
+        <span class="brand__mark"><svg class="icon icon--lg" aria-hidden="true"><use href="#i-logo"/></svg></span>
+        <span class="brand__text">
+          <span class="brand__name">NeuroShield</span>
+          <span class="brand__sub">Wearable BCI dashboard</span>
+        </span>
+        <button class="btn btn--icon sidebar__close" id="sidebar-close" type="button" aria-label="Close menu">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <nav class="nav" aria-label="Main">
+        <a class="nav__link" href="#overview" data-nav="overview"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Overview</a>
+        <a class="nav__link" href="#live" data-nav="live"><svg class="icon" aria-hidden="true"><use href="#i-activity"/></svg>Live EEG</a>
+        <a class="nav__link" href="#alerts" data-nav="alerts"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>Alerts<span class="nav__count" id="nav-alert-count" hidden>0</span></a>
+        <a class="nav__link" href="#reports" data-nav="reports"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Daily reports</a>
+        <a class="nav__link" href="#care" data-nav="care"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Care team</a>
+        <a class="nav__link" href="#device" data-nav="device"><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg>Device &amp; privacy</a>
+      </nav>
+
+      <fieldset class="role-switch">
+        <legend>Viewing as</legend>
+        <div class="seg seg--stack" role="presentation">
+          <label><input type="radio" name="role" value="user" checked><span>Wearer</span></label>
+          <label><input type="radio" name="role" value="caregiver"><span>Parent</span></label>
+          <label><input type="radio" name="role" value="doctor"><span>Doctor</span></label>
+        </div>
+        <p class="role-switch__hint" id="role-hint">You control who sees your data.</p>
+      </fieldset>
+
+      <div class="sidebar__foot">
+        <p class="disclaimer">Research prototype for the NYAS Junior Academy challenge. All data on this page is simulated. Not a medical device.</p>
+        <p class="supporters__label">Supported by</p>
+        <div class="supporters">
+          <span class="supporters__logo"><img src="../l2s/msft.png" alt="Microsoft" height="28"></span>
+          <span class="supporters__logo"><img src="../l2s/nyas.png" alt="The New York Academy of Sciences" height="28"></span>
+        </div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim" hidden></div>
+
+    <div class="main-wrap">
+      <!-- Top bar -->
+      <header class="topbar">
+        <button class="btn btn--icon menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+        <h1 class="topbar__title" id="page-title" tabindex="-1">Overview</h1>
+
+        <div class="topbar__actions">
+          <p class="stream-badge" id="stream-badge">
+            <span class="stream-badge__dot" aria-hidden="true"></span>
+            <span class="stream-badge__text"><span id="stream-label">Demo stream</span> <span class="stream-badge__time mono" id="stream-time">updated just now</span></span>
+          </p>
+
+          <div class="menu" id="scenario-menu">
+            <button class="btn btn--primary" id="scenario-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="scenario-list">
+              <svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg><span class="hide-sm">Run scenario</span>
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </button>
+            <div class="menu__list" id="scenario-list" role="menu" hidden>
+              <button type="button" role="menuitem" data-scenario="acute"><strong>Acute event</strong><span>Risk climbs past the safety gate and asks for consent</span></button>
+              <button type="button" role="menuitem" data-scenario="depression"><strong>Depression marker drift</strong><span>Frontal alpha asymmetry rises. Logged, no stimulation</span></button>
+              <button type="button" role="menuitem" data-scenario="stress"><strong>Stress spike</strong><span>Beta/alpha ratio jumps for about 40 seconds</span></button>
+              <button type="button" role="menuitem" data-scenario="baseline"><strong>Return to baseline</strong><span>Clear the running scenario</span></button>
+            </div>
+          </div>
+
+          <a class="btn btn--icon bell" href="#alerts" id="bell-btn" aria-label="Alerts, none need review">
+            <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg>
+            <span class="bell__count" id="bell-count" hidden>0</span>
+          </a>
+        </div>
+      </header>
+
+      <main id="main" class="main">
+
+        <!-- Consent banner (shared across views) -->
+        <div class="banner" id="consent-banner" role="alert" hidden>
+          <svg class="icon icon--lg" aria-hidden="true"><use href="#i-alert"/></svg>
+          <div class="banner__body">
+            <p class="banner__title">Safety gate open. Consent needed for stimulation.</p>
+            <p class="banner__text" id="consent-banner-text">Waiting for a decision.</p>
+          </div>
+          <button class="btn btn--paper" type="button" id="consent-banner-btn">Review and respond</button>
+        </div>
+
+        <!-- ============ OVERVIEW ============ -->
+        <section class="view" data-view="overview">
+          <div class="grid grid--overview">
+            <article class="hero" id="hero" data-level="clear">
+              <div class="hero__main">
+                <span class="hero__icon" aria-hidden="true"><svg class="icon icon--xl" id="hero-icon"><use href="#i-check-circle"/></svg></span>
+                <h2 class="hero__title" id="hero-title">No anomaly detected</h2>
+                <p class="hero__text" id="hero-text">All five categories are below your alert threshold. Monitoring continues in the background.</p>
+                <div class="hero__actions">
+                  <button class="btn btn--ink" type="button" id="hero-action" hidden>Review and respond</button>
+                  <a class="btn btn--paper" href="#live">Open live EEG</a>
+                </div>
+              </div>
+              <dl class="hero__stats">
+                <div class="stat">
+                  <dt>Highest risk</dt>
+                  <dd>
+                    <span class="stat__value mono" id="hero-risk">0%</span>
+                    <span class="stat__sub" id="hero-risk-cat">Stress</span>
+                  </dd>
+                  <div class="meter" aria-hidden="true">
+                    <span class="meter__fill" id="hero-meter"></span>
+                    <span class="meter__gate" id="hero-gate-mark"></span>
+                  </div>
+                </div>
+                <div class="stat">
+                  <dt>Time to onset</dt>
+                  <dd><span class="stat__value mono" id="hero-onset">None</span></dd>
+                </div>
+                <div class="stat">
+                  <dt>Safety gate</dt>
+                  <dd class="stat__text" id="hero-gate">Closed</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="card device-mini" aria-labelledby="dm-title">
+              <div class="card__head">
+                <h2 id="dm-title">Headset</h2>
+                <span class="chip chip--clear" id="dm-chip"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Connected</span>
+              </div>
+              <ul class="kv">
+                <li><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-battery"/></svg>Battery</span><strong class="mono" id="dm-battery">82%</strong></li>
+                <li><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-bluetooth"/></svg>Bluetooth LE</span><strong class="mono" id="dm-signal">-58 dBm</strong></li>
+                <li><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-lock"/></svg>Encryption</span><strong class="mono">AES-256 + TLS 1.3</strong></li>
+                <li><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"/></svg>Session</span><strong class="mono" id="dm-session">00:00:00</strong></li>
+              </ul>
+              <div class="contacts" id="dm-contacts" aria-label="Electrode contact quality"></div>
+              <a class="btn btn--sm btn--paper btn--block" href="#device">Manage device</a>
+            </article>
+          </div>
+
+          <div class="section-head">
+            <h2>Anomaly categories</h2>
+            <p class="section-head__note" id="cat-note">Alert threshold 25%. Select a category for details.</p>
+          </div>
+          <div class="cat-grid" id="cat-grid"></div>
+
+          <div class="grid grid--split">
+            <article class="card" aria-labelledby="mini-eeg-title">
+              <div class="card__head">
+                <h2 id="mini-eeg-title">EEG preview</h2>
+                <a class="link" href="#live">Full view</a>
+              </div>
+              <div class="eeg-stage eeg-stage--mini">
+                <canvas id="eeg-mini" role="img" aria-label="Last 5 seconds of four-channel EEG"></canvas>
+                <div class="eeg-overlay" data-overlay="mini" hidden><p></p></div>
+              </div>
+            </article>
+
+            <article class="card" aria-labelledby="recent-title">
+              <div class="card__head">
+                <h2 id="recent-title">Recent events</h2>
+                <a class="link" href="#alerts">All alerts</a>
+              </div>
+              <ul class="recent" id="recent-list"></ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- ============ LIVE EEG ============ -->
+        <section class="view" data-view="live" hidden>
+          <div class="card locked" id="live-locked" hidden>
+            <svg class="icon icon--xl" aria-hidden="true"><use href="#i-lock"/></svg>
+            <h2>Live EEG is private</h2>
+            <p>The wearer has not shared raw brain signals with parents. You still see anomaly status and alerts.</p>
+            <a class="btn btn--paper" href="#care">See access settings</a>
+          </div>
+
+          <div id="live-content">
+            <article class="card eeg-card" aria-labelledby="eeg-title">
+              <div class="card__head card__head--wrap">
+                <div>
+                  <h2 id="eeg-title">Four-channel EEG</h2>
+                  <p class="card__sub">Frontal AF3, AF4 and temporal T7, T8. Self-hydrating polymer electrodes, 128 samples per second.</p>
+                </div>
+                <div class="controls">
+                  <button class="btn btn--sm btn--secondary" type="button" id="stream-toggle" aria-pressed="false">
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#i-pause"/></svg><span>Pause</span>
+                  </button>
+                  <div class="seg" role="radiogroup" aria-label="Time window">
+                    <label><input type="radio" name="timebase" value="5" checked><span>5 s</span></label>
+                    <label><input type="radio" name="timebase" value="10"><span>10 s</span></label>
+                  </div>
+                  <div class="stepper" role="group" aria-label="Amplitude scale">
+                    <button class="btn btn--sm btn--icon" type="button" id="gain-down" aria-label="Decrease amplitude"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-minus"/></svg></button>
+                    <output class="mono" id="gain-out" aria-live="polite">1.0×</output>
+                    <button class="btn btn--sm btn--icon" type="button" id="gain-up" aria-label="Increase amplitude"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"/></svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <fieldset class="channel-toggles">
+                <legend class="visually-hidden">Visible channels</legend>
+                <label class="check"><input type="checkbox" value="AF3" checked><span>AF3</span></label>
+                <label class="check"><input type="checkbox" value="AF4" checked><span>AF4</span></label>
+                <label class="check"><input type="checkbox" value="T7" checked><span>T7</span></label>
+                <label class="check"><input type="checkbox" value="T8" checked><span>T8</span></label>
+              </fieldset>
+
+              <div class="eeg-stage">
+                <canvas id="eeg-main" role="img" aria-label="Live four-channel EEG trace. Current values are listed below the chart."></canvas>
+                <div class="eeg-overlay" data-overlay="main" hidden><p></p></div>
+              </div>
+
+              <dl class="readouts" id="readouts"></dl>
+            </article>
+
+            <div class="grid grid--split">
+              <article class="card" aria-labelledby="band-title">
+                <div class="card__head card__head--wrap">
+                  <h2 id="band-title">Band power</h2>
+                  <label class="inline-field">
+                    <span>Channel</span>
+                    <select id="band-channel">
+                      <option>AF3</option><option>AF4</option><option>T7</option><option>T8</option>
+                    </select>
+                  </label>
+                </div>
+                <ul class="bands" id="band-list"></ul>
+                <p class="note">Share of total power per frequency band, over the last second.</p>
+              </article>
+
+              <article class="card" aria-labelledby="markers-title">
+                <div class="card__head"><h2 id="markers-title">Markers we track</h2></div>
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead><tr><th scope="col">Category</th><th scope="col">EEG marker</th><th scope="col">Now</th></tr></thead>
+                    <tbody id="marker-rows"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ ALERTS ============ -->
+        <section class="view" data-view="alerts" hidden>
+          <div class="toolbar">
+            <div class="seg" role="radiogroup" aria-label="Filter events">
+              <label><input type="radio" name="alert-filter" value="all" checked><span>All</span></label>
+              <label><input type="radio" name="alert-filter" value="review"><span>Needs review</span></label>
+              <label><input type="radio" name="alert-filter" value="intervention"><span>Interventions</span></label>
+              <label><input type="radio" name="alert-filter" value="system"><span>Device</span></label>
+            </div>
+            <button class="btn btn--sm btn--paper" type="button" id="export-csv">
+              <svg class="icon icon--sm" aria-hidden="true"><use href="#i-download"/></svg>Export CSV
+            </button>
+          </div>
+          <p class="note note--role" id="review-note"></p>
+          <ol class="events" id="event-list"></ol>
+          <div class="card empty" id="events-empty" hidden>
+            <svg class="icon icon--xl" aria-hidden="true"><use href="#i-check-circle"/></svg>
+            <h2>Nothing here</h2>
+            <p>No events match this filter. Try <button class="link" type="button" data-filter-reset>showing all events</button>.</p>
+          </div>
+        </section>
+
+        <!-- ============ REPORTS ============ -->
+        <section class="view" data-view="reports" hidden>
+          <div class="card empty" id="reports-off" hidden>
+            <svg class="icon icon--xl" aria-hidden="true"><use href="#i-file"/></svg>
+            <h2>Daily reports are off</h2>
+            <p>The headset ends the stream when nothing is detected and keeps no summary. Turn on daily reports to get an end-of-day view of your baseline.</p>
+            <a class="btn btn--primary" href="#device">Turn on in Device &amp; privacy</a>
+          </div>
+
+          <div id="reports-on">
+            <article class="card trend-card" aria-labelledby="trend-title">
+              <div class="card__head card__head--wrap">
+                <div>
+                  <h2 id="trend-title">14-day trend</h2>
+                  <p class="card__sub">Daily average risk. The line marks your alert threshold.</p>
+                </div>
+                <div class="seg seg--scroll" role="radiogroup" aria-label="Category" id="trend-cats"></div>
+              </div>
+              <div class="trend" id="trend" aria-hidden="true"></div>
+              <table class="visually-hidden" id="trend-table"></table>
+            </article>
+
+            <div class="reports-grid">
+              <nav class="card report-list" aria-labelledby="rl-title">
+                <div class="card__head"><h2 id="rl-title">Reports</h2></div>
+                <button class="btn btn--sm btn--secondary btn--block" type="button" id="gen-report">
+                  <svg class="icon icon--sm" aria-hidden="true"><use href="#i-plus"/></svg>Build today's report
+                </button>
+                <ul id="report-list"></ul>
+              </nav>
+              <article class="card report-detail" id="report-detail" aria-live="polite"></article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ CARE TEAM ============ -->
+        <section class="view" data-view="care" hidden>
+          <p class="lede">Who can see your data and who can approve stimulation. The wearer controls every setting on this page.</p>
+          <div class="member-grid" id="member-list"></div>
+
+          <article class="card invite" aria-labelledby="invite-title">
+            <div class="card__head"><h2 id="invite-title">Invite someone</h2></div>
+            <form id="invite-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="inv-name">Full name</label>
+                  <input id="inv-name" name="name" type="text" autocomplete="name" required aria-describedby="inv-name-err">
+                  <p class="field__error" id="inv-name-err" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="inv-email">Email</label>
+                  <input id="inv-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="inv-email-err">
+                  <p class="field__error" id="inv-email-err" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="inv-role">Role</label>
+                  <select id="inv-role" name="role">
+                    <option value="caregiver">Parent or caregiver</option>
+                    <option value="doctor">Doctor</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="inv-relation">Relationship <span class="field__opt">(optional)</span></label>
+                  <input id="inv-relation" name="relation" type="text" placeholder="e.g. Mother, Neurologist">
+                </div>
+              </div>
+              <div class="form-foot">
+                <p class="note" id="invite-note">New parents get emergency alerts only. You can widen access after they join.</p>
+                <button class="btn btn--primary" type="submit" id="invite-submit">Send invite</button>
+              </div>
+            </form>
+          </article>
+        </section>
+
+        <!-- ============ DEVICE & PRIVACY ============ -->
+        <section class="view" data-view="device" hidden>
+          <div class="grid grid--device">
+            <article class="card" aria-labelledby="hs-title">
+              <div class="card__head">
+                <h2 id="hs-title">Headset</h2>
+                <span class="chip chip--clear" id="hs-chip"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-check"/></svg>Connected</span>
+              </div>
+              <ul class="kv">
+                <li><span>Battery</span><strong class="mono" id="hs-battery">82%</strong></li>
+                <li><span>Firmware</span><strong class="mono">0.4.2-proto</strong></li>
+                <li><span>Bluetooth signal</span><strong class="mono" id="hs-signal">-58 dBm</strong></li>
+                <li><span>Last cloud sync</span><strong class="mono" id="hs-sync">just now</strong></li>
+              </ul>
+              <h3 class="subhead">Electrode contact</h3>
+              <ul class="impedance" id="impedance-list"></ul>
+              <div class="btn-row">
+                <button class="btn btn--sm btn--paper" type="button" id="check-electrodes"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-activity"/></svg><span>Check electrodes</span></button>
+                <button class="btn btn--sm btn--paper" type="button" id="sync-now"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-refresh"/></svg><span>Sync now</span></button>
+                <button class="btn btn--sm btn--paper" type="button" id="repair"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-bluetooth"/></svg><span>Re-pair headset</span></button>
+              </div>
+            </article>
+
+            <article class="card" aria-labelledby="th-title">
+              <div class="card__head">
+                <h2 id="th-title">Safety gate</h2>
+                <span class="chip chip--muted" id="th-lock"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-lock"/></svg>Doctor only</span>
+              </div>
+              <p class="card__sub">Stimulation is offered only when both conditions are true. It never starts without consent.</p>
+              <div class="field">
+                <label for="th-risk">Risk score above <output class="mono" id="th-risk-out" for="th-risk">25%</output></label>
+                <input type="range" id="th-risk" min="10" max="90" step="5" value="25">
+              </div>
+              <div class="field">
+                <label for="th-onset">Predicted onset within <output class="mono" id="th-onset-out" for="th-onset">5 min</output></label>
+                <input type="range" id="th-onset" min="1" max="15" step="1" value="5">
+              </div>
+              <p class="note note--role" id="th-note"></p>
+            </article>
+
+            <article class="card" aria-labelledby="pv-title">
+              <div class="card__head"><h2 id="pv-title">When nothing is detected</h2></div>
+              <div class="choice" role="radiogroup" aria-labelledby="pv-title">
+                <label class="choice__item">
+                  <input type="radio" name="idle-mode" value="report" checked>
+                  <span><strong>Build a daily wellness report</strong>Processed aggregates are kept for one end-of-day summary. Raw EEG is not stored.</span>
+                </label>
+                <label class="choice__item">
+                  <input type="radio" name="idle-mode" value="end">
+                  <span><strong>End the stream and keep nothing</strong>Maximum privacy. No daily report, only alerts are saved.</span>
+                </label>
+              </div>
+              <p class="note note--role" id="pv-note"></p>
+            </article>
+
+            <article class="card" aria-labelledby="sec-title">
+              <div class="card__head"><h2 id="sec-title">Security</h2></div>
+              <ul class="checklist">
+                <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>On-device encryption.</strong> EEG is encrypted with AES-256 before it leaves the headset.</span></li>
+                <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>TLS 1.3 transport.</strong> Streams go through Azure API Management into Azure Event Hub.</span></li>
+                <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>Signed commands.</strong> The headset's hardware security module verifies every stimulation command and resets on a signature mismatch.</span></li>
+                <li><svg class="icon icon--sm" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>HIPAA-aligned access.</strong> Only people on your care team can open your records.</span></li>
+              </ul>
+            </article>
+
+            <article class="card" aria-labelledby="demo-title">
+              <div class="card__head"><h2 id="demo-title">Demo data</h2></div>
+              <p class="card__sub">Settings, care team and events are saved in this browser. Clearing restores the starting demo.</p>
+              <button class="btn btn--sm btn--danger" type="button" id="reset-demo"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-trash"/></svg>Clear demo data</button>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Consent dialog -->
+  <dialog class="dialog dialog--danger" id="consent-dialog" aria-labelledby="cd-title" aria-describedby="cd-desc">
+    <div class="dialog__head">
+      <svg class="icon icon--lg" aria-hidden="true"><use href="#i-alert"/></svg>
+      <h2 id="cd-title">Approve stimulation?</h2>
+    </div>
+    <div class="dialog__body">
+      <p id="cd-desc">An acute pattern crossed the safety gate. A short microcurrent session can be sent to the headset. EEG sensors pause while it runs.</p>
+      <dl class="evidence" id="cd-evidence"></dl>
+      <p class="note">Evidence fields come from the RAG step (PubMed and nine curated repositories). In this demo they are simulated.</p>
+      <div class="countdown" aria-hidden="true"><span class="countdown__bar" id="cd-bar"></span></div>
+      <p class="countdown__text mono" id="cd-time" aria-live="off">60 s left</p>
+      <p class="note note--role" id="cd-role-note" hidden></p>
+    </div>
+    <div class="dialog__foot">
+      <button class="btn btn--paper" type="button" id="cd-deny">Decline</button>
+      <button class="btn btn--danger" type="button" id="cd-approve"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-zap"/></svg>Approve stimulation</button>
+    </div>
+  </dialog>
+
+  <!-- Category dialog -->
+  <dialog class="dialog" id="cat-dialog" aria-labelledby="cat-d-title">
+    <div class="dialog__head">
+      <h2 id="cat-d-title">Category</h2>
+      <button class="btn btn--icon btn--paper dialog__close" type="button" data-close aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="dialog__body" id="cat-d-body"></div>
+  </dialog>
+
+  <!-- Confirm dialog -->
+  <dialog class="dialog" id="confirm-dialog" aria-labelledby="cf-title" aria-describedby="cf-body">
+    <div class="dialog__head"><h2 id="cf-title">Are you sure?</h2></div>
+    <div class="dialog__body"><p id="cf-body"></p></div>
+    <div class="dialog__foot">
+      <button class="btn btn--paper" type="button" id="cf-cancel">Cancel</button>
+      <button class="btn btn--danger" type="button" id="cf-ok">Confirm</button>
+    </div>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
